@@ -22,7 +22,7 @@ export default function PartsPage() {
     <>
       <SiteHeader pageLabel="第 2 页 / 九大零件" backHref="/" />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-24">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-32">
         {/* Hero */}
         <section className="pt-14 pb-10 text-center">
           <p className="mb-3 text-sm font-medium tracking-wide text-violet-400">拆开看里面</p>

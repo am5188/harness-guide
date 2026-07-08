@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <SiteHeader pageLabel="第 1 页 / 总览" />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-24">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-32">
         {/* Hero */}
         <section className="pt-14 pb-10 text-center">
           <p className="mb-3 text-sm font-medium tracking-wide text-blue-400">30 秒建立心智模型</p>
@@ -72,7 +72,7 @@ export default function Home() {
             <p className="text-sm text-slate-500">Harness 到底是造 Agent 后端，还是给已有 Agent 用的？</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-5 opacity-80">
+            <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-5">
               <div className="mb-2 text-xs font-bold text-red-400 uppercase">❌ 错误理解</div>
               <p className="text-sm leading-relaxed text-slate-300">
                 有个现成的 Agent，Harness 是<strong>外挂插件</strong>，给它加功能用的。
@@ -176,7 +176,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-          <p className="mt-8 text-center text-xs text-slate-600">
+          <p className="mt-8 text-center text-xs text-slate-500">
             详细文字版在 <code className="rounded bg-white/5 px-1.5 py-0.5 text-slate-500">docs/</code> 目录，这里只做「一眼看懂」
           </p>
         </section>

@@ -15,7 +15,7 @@ export default function SecurityPage() {
     <>
       <SiteHeader pageLabel="第 8 页 / 安全与注入" backHref="/eval" />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-24">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-32">
         {/* Hero */}
         <section className="pt-14 pb-10 text-center">
           <p className="mb-3 text-sm font-medium tracking-wide text-rose-400">守住边界</p>

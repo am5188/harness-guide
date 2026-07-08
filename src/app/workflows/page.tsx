@@ -43,7 +43,7 @@ export default function WorkflowsPage() {
     <>
       <SiteHeader pageLabel="第 4 页 / 工作流模式" backHref="/loop" />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-24">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-32">
         {/* Hero */}
         <section className="pt-14 pb-10 text-center">
           <p className="mb-3 text-sm font-medium tracking-wide text-amber-400">循环之上</p>
@@ -113,7 +113,7 @@ export default function WorkflowsPage() {
 
         {/* 反模式 */}
         <section className="mb-14">
-          <h2 className="mb-2 text-center text-lg font-semibold text-white">两个反模式，要避开</h2>
+          <h2 className="mb-2 text-center text-lg font-semibold text-white">三个反模式，要避开</h2>
           <p className="mb-6 text-center text-sm text-slate-500">生产里最常见的踩坑</p>
           <div className="grid gap-3 sm:grid-cols-3">
             {ANTI_PATTERNS.map((item) => (

@@ -54,7 +54,7 @@ export default function ToolsPage() {
     <>
       <SiteHeader pageLabel="第 6 页 / 工具与 MCP" backHref="/context" />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-24">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-32">
         {/* Hero */}
         <section className="pt-14 pb-10 text-center">
           <p className="mb-3 text-sm font-medium tracking-wide text-amber-400">给 agent 装双手</p>
@@ -175,15 +175,18 @@ export default function ToolsPage() {
                 <div className="text-xs text-slate-400">已完成</div>
               </div>
             </Link>
-            <div className="glass flex cursor-not-allowed items-center gap-4 rounded-xl p-4">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/5 text-sm font-bold text-slate-400">
+            <Link
+              href="/eval"
+              className="glass flex items-center gap-4 rounded-xl p-4 transition hover:border-white/15 hover:bg-white/[0.05]"
+            >
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/20 text-sm font-bold text-emerald-300">
                 07
               </div>
               <div>
-                <div className="text-sm font-medium text-slate-300">评估与基准</div>
-                <div className="text-xs text-slate-400">即将推出</div>
+                <div className="text-sm font-medium text-white">评估与基准</div>
+                <div className="text-xs text-slate-500">不靠感觉，靠测量 →</div>
               </div>
-            </div>
+            </Link>
           </div>
         </section>
       </main>

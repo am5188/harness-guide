@@ -16,7 +16,7 @@ export default function EvalPage() {
     <>
       <SiteHeader pageLabel="第 7 页 / 评估与基准" backHref="/tools" />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-24">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-32">
         {/* Hero */}
         <section className="pt-14 pb-10 text-center">
           <p className="mb-3 text-sm font-medium tracking-wide text-emerald-400">不靠感觉，靠测量</p>

@@ -89,8 +89,10 @@ export function SecurityLethalTrifecta() {
               key={f.id}
               type="button"
               onClick={() => toggle(f.id)}
+              aria-pressed={isOn}
+              aria-label={`${f.name}：${isOn ? "已启用" : "未启用"}`}
               className={cn(
-                "rounded-xl border px-4 py-5 text-left transition-all",
+                "rounded-xl border px-4 py-5 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/50",
                 isOn
                   ? "border-rose-500/50 bg-rose-500/15 ring-1 ring-rose-500/40"
                   : "border-white/10 bg-white/[0.03] hover:border-white/20",
@@ -101,7 +103,7 @@ export function SecurityLethalTrifecta() {
                 {f.name}
               </div>
               <div className="mt-1 text-xs text-slate-400">{f.short}</div>
-              <div className="mt-2 text-[11px] text-slate-500">
+              <div className="mt-2 text-xs text-slate-400">
                 {isOn ? "✓ 已启用" : "点击启用"}
               </div>
             </button>
@@ -126,8 +128,10 @@ export function SecurityLethalTrifecta() {
               <span className="text-red-300">⚠️ 致命三要素 · 全占 = 高危</span>
             ) : count === 2 ? (
               <span className="text-amber-300">二选二法则 · 还缺一项，相对可控</span>
-            ) : (
+            ) : count === 1 ? (
               <span className="text-emerald-300">单项能力 · 风险较低</span>
+            ) : (
+              <span className="text-slate-400">未选择任何能力 · 点上方卡片试试</span>
             )}
           </div>
 

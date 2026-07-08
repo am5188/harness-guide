@@ -35,7 +35,9 @@ export function PageChrome() {
 
   // 扫描当前页面的 h2，作为页内目录
   useEffect(() => {
-    const headings = Array.from(document.querySelectorAll<HTMLHeadingElement>("main h2"));
+    const headings = Array.from(document.querySelectorAll<HTMLHeadingElement>("main h2")).filter(
+      (el) => !el.textContent?.includes("继续往下看"),
+    );
     const found: Section[] = headings.map((el, i) => {
       if (!el.id) el.id = slugify(el.textContent ?? "", i);
       el.classList.add("scroll-mt-24");
@@ -89,13 +91,17 @@ export function PageChrome() {
               key={s.id}
               type="button"
               onClick={() => scrollToSection(s.id)}
-              className="group flex items-center justify-end gap-2"
+              aria-label={`跳转到：${s.text}`}
+              aria-current={isActive ? "true" : undefined}
+              className="group flex items-center justify-end gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50"
               title={s.text}
             >
               <span
                 className={cn(
-                  "max-w-0 overflow-hidden whitespace-nowrap rounded-md text-xs text-slate-300 opacity-0 transition-all duration-200 group-hover:max-w-[200px] group-hover:opacity-100",
-                  isActive && "text-white",
+                  "overflow-hidden whitespace-nowrap rounded-md text-xs text-slate-300 transition-all duration-200",
+                  isActive
+                    ? "max-w-[200px] opacity-100"
+                    : "max-w-0 opacity-0 group-hover:max-w-[200px] group-hover:opacity-100",
                 )}
               >
                 <span className="glass rounded-md px-2 py-1">{s.text}</span>
@@ -111,20 +117,21 @@ export function PageChrome() {
             </button>
           );
         })}
-
-        {showTop ? (
-          <button
-            type="button"
-            onClick={scrollToTop}
-            aria-label="回到顶部"
-            className="glass mt-2 flex h-9 w-9 items-center justify-center rounded-full text-slate-300 transition hover:scale-110 hover:text-white"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 19V5M5 12l7-7 7 7" />
-            </svg>
-          </button>
-        ) : null}
       </nav>
+
+      {/* 右下角：置顶按钮 */}
+      {showTop ? (
+        <button
+          type="button"
+          onClick={scrollToTop}
+          aria-label="回到顶部"
+          className="glass fixed right-5 bottom-20 z-50 flex h-11 w-11 items-center justify-center rounded-full text-slate-300 shadow-lg shadow-black/30 transition hover:scale-110 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 19V5M5 12l7-7 7 7" />
+          </svg>
+        </button>
+      ) : null}
 
       {/* 底部居中：章节圆点导航 */}
       <nav

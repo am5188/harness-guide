@@ -15,7 +15,7 @@ export default function LoopPage() {
     <>
       <SiteHeader pageLabel="第 3 页 / 循环深潜" backHref="/parts" />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-24">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-32">
         {/* Hero */}
         <section className="pt-14 pb-10 text-center">
           <p className="mb-3 text-sm font-medium tracking-wide text-cyan-400">剥到最细</p>
@@ -72,7 +72,7 @@ export default function LoopPage() {
                   用户消息 + 10 次工具调用 + 输出 = <span className="text-amber-300">8k tokens</span>
                 </div>
               </div>
-              <div className="flex justify-center text-slate-600">↓ 全部塞进下一次</div>
+              <div className="flex justify-center text-slate-500">↓ 全部塞进下一次</div>
               <div className="flex items-center gap-4">
                 <div className="shrink-0 rounded-lg border border-violet-500/30 bg-violet-500/15 px-3 py-2 text-xs text-violet-200">
                   Turn 2
@@ -81,7 +81,7 @@ export default function LoopPage() {
                   8k 历史 + 新消息 + 15 次工具 = <span className="text-amber-300">24k tokens</span>
                 </div>
               </div>
-              <div className="flex justify-center text-slate-600">↓ 继续膨胀</div>
+              <div className="flex justify-center text-slate-500">↓ 继续膨胀</div>
               <div className="flex items-center gap-4">
                 <div className="shrink-0 rounded-lg border border-red-500/30 bg-red-500/15 px-3 py-2 text-xs text-red-200">
                   Turn 5

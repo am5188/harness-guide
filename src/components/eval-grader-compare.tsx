@@ -57,7 +57,7 @@ export function EvalGraderCompare() {
 
   return (
     <div>
-      <div className="mb-6 flex justify-center gap-2 sm:gap-3">
+      <div className="mb-6 flex justify-center gap-2 sm:gap-3" role="tablist" aria-label="打分器类型">
         {GRADERS.map((grader) => {
           const c = colorMap[grader.color];
           const isActive = active === grader.id;
@@ -65,9 +65,11 @@ export function EvalGraderCompare() {
             <button
               key={grader.id}
               type="button"
+              role="tab"
+              aria-selected={isActive}
               onClick={() => setActive(grader.id)}
               className={cn(
-                "flex-1 rounded-xl border px-3 py-4 text-center transition-all sm:px-6",
+                "flex-1 rounded-xl border px-3 py-4 text-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 sm:px-6",
                 isActive
                   ? cn(c.border, c.bg, "ring-1", c.ring)
                   : "border-white/5 bg-white/[0.02] hover:border-white/10",

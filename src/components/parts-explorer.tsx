@@ -131,7 +131,7 @@ export function PartsExplorer() {
 
   return (
     <div>
-      <div className="mb-6 grid grid-cols-3 gap-2 sm:grid-cols-3 sm:gap-3">
+      <div className="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3">
         {PARTS.map((part) => {
           const c = colorMap[part.color];
           const isActive = active === part.id;
@@ -140,8 +140,10 @@ export function PartsExplorer() {
               key={part.id}
               type="button"
               onClick={() => setActive(part.id)}
+              aria-pressed={isActive}
+              aria-label={part.name}
               className={cn(
-                "rounded-xl border p-3 text-left transition-all sm:p-4",
+                "rounded-xl border p-3 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50 sm:p-4",
                 isActive
                   ? cn(c.border, c.bg, "ring-1", c.ring, "scale-[1.02]")
                   : "border-white/5 bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.04]",

@@ -68,7 +68,7 @@ export function EvalBenchmarkExplorer() {
 
   return (
     <div>
-      <div className="mb-6 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+      <div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4 sm:gap-3">
         {BENCHMARKS.map((bench) => {
           const c = colorMap[bench.color];
           const isActive = active === bench.id;
@@ -85,7 +85,7 @@ export function EvalBenchmarkExplorer() {
               )}
             >
               <div className="mb-1 text-lg sm:text-xl">{bench.icon}</div>
-              <div className={cn("text-[11px] font-semibold leading-tight sm:text-xs", isActive ? c.text : "text-white")}>
+              <div className={cn("text-xs font-semibold leading-tight sm:text-sm", isActive ? c.text : "text-white")}>
                 {bench.name}
               </div>
             </button>
