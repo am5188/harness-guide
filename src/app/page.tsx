@@ -1,24 +1,12 @@
 import Link from "next/link";
 import { LayerTabs } from "@/components/layer-tabs";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 
 export default function Home() {
   return (
     <>
-      {/* 顶栏 */}
-      <header className="glass sticky top-0 z-50 border-b border-white/5">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-5 py-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 text-sm font-bold text-white shadow-lg shadow-blue-500/20">
-              H
-            </div>
-            <div>
-              <div className="text-sm font-semibold text-white">Harness 工程</div>
-              <div className="text-xs text-slate-500">图形化学习 · 不用啃长文档</div>
-            </div>
-          </div>
-          <span className="hidden text-xs text-slate-500 sm:block">第 1 页 / 总览</span>
-        </div>
-      </header>
+      <SiteHeader pageLabel="第 1 页 / 总览" />
 
       <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-24">
         {/* Hero */}
@@ -163,21 +151,30 @@ export default function Home() {
         <section>
           <h2 className="mb-2 text-center text-lg font-semibold text-white">继续往下看</h2>
           <p className="mb-6 text-center text-sm text-slate-500">每页只讲一件事，点进去就能懂</p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="glass flex cursor-not-allowed items-center gap-4 rounded-xl p-4 opacity-50">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/5 text-sm font-bold text-slate-500">02</div>
-              <div>
-                <div className="text-sm font-medium text-slate-400">定位与适用人群</div>
-                <div className="text-xs text-slate-600">即将推出</div>
-              </div>
-            </div>
-            <div className="glass flex cursor-not-allowed items-center gap-4 rounded-xl p-4 opacity-50">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/5 text-sm font-bold text-slate-500">03</div>
-              <div>
-                <div className="text-sm font-medium text-slate-400">九大组成零件</div>
-                <div className="text-xs text-slate-600">即将推出</div>
-              </div>
-            </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { href: "/parts", num: "02", title: "九大组成零件", sub: "拆开 Harness", chip: "bg-violet-500/20 text-violet-300" },
+              { href: "/loop", num: "03", title: "循环深潜", sub: "Item/Turn/Thread", chip: "bg-cyan-500/20 text-cyan-300" },
+              { href: "/workflows", num: "04", title: "工作流模式", sub: "五种积木", chip: "bg-amber-500/20 text-amber-300" },
+              { href: "/context", num: "05", title: "上下文工程", sub: "压缩/清理/记忆", chip: "bg-sky-500/20 text-sky-300" },
+              { href: "/tools", num: "06", title: "工具与 MCP", sub: "好工具 vs 坏工具", chip: "bg-orange-500/20 text-orange-300" },
+              { href: "/eval", num: "07", title: "评估与基准", sub: "不靠感觉靠测量", chip: "bg-emerald-500/20 text-emerald-300" },
+              { href: "/security", num: "08", title: "安全与注入", sub: "致命三要素", chip: "bg-rose-500/20 text-rose-300" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="glass flex items-center gap-3 rounded-xl p-4 transition hover:border-white/15 hover:bg-white/[0.05]"
+              >
+                <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-xs font-bold ${item.chip}`}>
+                  {item.num}
+                </div>
+                <div className="min-w-0">
+                  <div className="truncate text-sm font-medium text-white">{item.title}</div>
+                  <div className="truncate text-xs text-slate-500">{item.sub}</div>
+                </div>
+              </Link>
+            ))}
           </div>
           <p className="mt-8 text-center text-xs text-slate-600">
             详细文字版在 <code className="rounded bg-white/5 px-1.5 py-0.5 text-slate-500">docs/</code> 目录，这里只做「一眼看懂」
@@ -185,9 +182,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-white/5 py-6 text-center text-xs text-slate-600">
-        Harness 工程 · 图形化学习
-      </footer>
+      <SiteFooter />
     </>
   );
 }
