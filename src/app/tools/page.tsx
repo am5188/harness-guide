@@ -67,32 +67,48 @@ export default function ToolsPage() {
           </p>
         </section>
 
-        {/* 核心洞察 */}
+        {/* MCP 是什么 */}
         <section className="mb-14">
+          <h2 className="mb-2 text-center text-lg font-semibold text-white">MCP：工具的「USB 接口」</h2>
+          <p className="mb-8 text-center text-sm text-slate-400">
+            Model Context Protocol——让工具和数据源以标准方式暴露给任意模型客户端
+          </p>
           <div className="rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/10 to-orange-500/5 p-6 sm:p-8">
-            <p className="text-center text-sm leading-relaxed text-slate-300">
-              Anthropic 原话精神：<strong className="text-white">「Agents are only as effective as the tools we give them.」</strong>
-              <br />
-              <span className="text-slate-500">Agent 的上限，取决于你给它的工具。</span>
+            <div className="mb-6 grid gap-3 sm:grid-cols-3">
+              {MCP_FEATURES.map((f) => (
+                <div key={f.label} className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 text-center">
+                  <div className="mb-1 text-sm font-semibold text-amber-300">{f.label}</div>
+                  <div className="text-xs text-slate-300">{f.detail}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="rounded-xl border border-white/5 bg-black/20 p-5">
+              <div className="mb-3 text-xs font-semibold tracking-wider text-orange-400 uppercase">
+                安全铁律（规范原文）
+              </div>
+              <div className="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-center">
+                {MCP_SECURITY.map((item, i) => (
+                  <div key={item} className="flex items-center gap-2">
+                    {i > 0 ? <span className="hidden text-slate-500 sm:inline">→</span> : null}
+                    <div className="rounded-lg border border-orange-500/30 bg-orange-500/15 px-3 py-2 text-xs text-orange-200">
+                      {item}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <p className="mt-6 text-center text-sm text-slate-300">
+              模型只「提出」工具调用——Harness 负责校验 schema → 检查权限 → 执行 → 回填结果
             </p>
           </div>
         </section>
 
-        {/* 交互式探索 */}
+        {/* 工具设计要点 */}
         <section className="mb-14">
-          <h2 className="mb-2 text-center text-lg font-semibold text-white">点一点，看差别</h2>
-          <p className="mb-8 text-center text-sm text-slate-500">
-            好工具 vs 坏工具，以及工具太多时的两种应对策略
-          </p>
-          <ToolsExplorer />
-        </section>
-
-        <div className="glow-line mx-auto mb-14 max-w-md" />
-
-        {/* 设计四原则 */}
-        <section className="mb-14">
-          <h2 className="mb-2 text-center text-lg font-semibold text-white">四条设计原则</h2>
-          <p className="mb-8 text-center text-sm text-slate-500">
+          <h2 className="mb-2 text-center text-lg font-semibold text-white">工具设计要点</h2>
+          <p className="mb-8 text-center text-sm text-slate-400">
             先想清楚造哪些、不造哪些——判断标准：这个工具对应 agent 真正要做的「一件事」吗？
           </p>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -106,81 +122,26 @@ export default function ToolsPage() {
               </div>
             ))}
           </div>
-          <p className="mt-4 text-center text-xs text-slate-500">
+          <p className="mt-4 text-center text-xs text-slate-400">
             Claude Code 默认把工具响应限制在 25,000 token 以内——输出臃肿是真金白银的浪费
           </p>
         </section>
 
-        {/* MCP */}
+        <div className="glow-line mx-auto mb-14 max-w-md" />
+
+        {/* 工具太多怎么办 */}
         <section className="mb-14">
-          <h2 className="mb-2 text-center text-lg font-semibold text-white">MCP：工具的「USB 接口」</h2>
-          <p className="mb-8 text-center text-sm text-slate-500">
-            Model Context Protocol——让工具和数据源以标准方式暴露给任意模型客户端
+          <h2 className="mb-2 text-center text-lg font-semibold text-white">工具太多怎么办</h2>
+          <p className="mb-8 text-center text-sm text-slate-400">
+            几十上百个工具一次性塞进上下文会拖慢、变贵、降质——两种关键应对模式
           </p>
-          <div className="glass rounded-2xl p-6 sm:p-8">
-            <div className="mb-6 grid gap-3 sm:grid-cols-3">
-              {MCP_FEATURES.map((f) => (
-                <div key={f.label} className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 text-center">
-                  <div className="mb-1 text-sm font-semibold text-amber-300">{f.label}</div>
-                  <div className="text-xs text-slate-400">{f.detail}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="rounded-xl border border-white/5 bg-black/20 p-5">
-              <div className="mb-3 text-xs font-semibold tracking-wider text-orange-400 uppercase">
-                安全铁律（规范原文）
-              </div>
-              <div className="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-center">
-                {MCP_SECURITY.map((item, i) => (
-                  <div key={item} className="flex items-center gap-2">
-                    {i > 0 ? <span className="hidden text-slate-600 sm:inline">→</span> : null}
-                    <div className="rounded-lg border border-orange-500/30 bg-orange-500/15 px-3 py-2 text-xs text-orange-200">
-                      {item}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <p className="mt-6 text-center text-xs text-slate-500">
-              模型只「提出」工具调用——Harness 负责校验 schema → 检查权限 → 执行 → 回填结果
-            </p>
-          </div>
-        </section>
-
-        {/* Agent 优化 Agent 的工具 */}
-        <section className="mb-14">
-          <h2 className="mb-2 text-center text-lg font-semibold text-white">让 agent 给自己磨刀</h2>
-          <p className="mb-8 text-center text-sm text-slate-500">
-            Anthropic 的有趣做法：用评估驱动工具定义的自动优化
-          </p>
-          <div className="glass rounded-2xl p-6 sm:p-8">
-            <div className="flex flex-col items-center gap-3 text-sm sm:flex-row sm:flex-wrap sm:justify-center">
-              {[
-                { label: "跑评估", cls: "border-amber-500/30 bg-amber-500/15 text-amber-200" },
-                { label: "看哪些 schema 让模型犯错", cls: "border-orange-500/30 bg-orange-500/15 text-orange-200" },
-                { label: "模型改写工具定义", cls: "border-amber-500/30 bg-amber-500/15 text-amber-200" },
-                { label: "再评估", cls: "border-orange-500/30 bg-orange-500/15 text-orange-200" },
-              ].map((item, i) => (
-                <div key={item.label} className="flex items-center gap-3">
-                  {i > 0 ? <span className="hidden text-slate-600 sm:inline">→</span> : null}
-                  <div className={`rounded-xl border px-4 py-3 text-center text-xs sm:text-sm ${item.cls}`}>
-                    {item.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="mt-6 text-center text-xs text-slate-500">
-              一个小型的「评估—优化」循环，也是自我改进的雏形
-            </p>
-          </div>
+          <ToolsExplorer />
         </section>
 
         {/* 手搓启发 */}
         <section className="mb-14">
-          <div className="rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 to-amber-500/5 p-6 sm:p-8">
-            <h2 className="mb-4 text-lg font-semibold text-white">对我们手搓的三条启发</h2>
+          <div className="rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-500/10 to-orange-500/5 p-6 sm:p-8">
+            <h2 className="mb-4 text-lg font-semibold text-white">对我们手搓的启发</h2>
             <div className="space-y-3">
               {[
                 "阶段 01「第一个工具」就按这些原则来：严格 schema、精确参数名、带内错误、结构化返回",
@@ -188,7 +149,7 @@ export default function ToolsPage() {
                 "工具少时不用搞渐进式发现；等工具多了再上 search_tools 或编程式调用",
               ].map((tip, i) => (
                 <div key={tip} className="flex gap-3 text-sm text-slate-300">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-xs font-bold text-emerald-300">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-500/20 text-xs font-bold text-amber-300">
                     {i + 1}
                   </span>
                   {tip}
@@ -206,26 +167,23 @@ export default function ToolsPage() {
               href="/context"
               className="glass flex items-center gap-4 rounded-xl p-4 transition hover:border-white/15 hover:bg-white/[0.05]"
             >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-teal-500/20 text-sm font-bold text-teal-300">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-sky-500/20 text-sm font-bold text-sky-300">
                 05
               </div>
               <div>
                 <div className="text-sm font-medium text-white">上下文工程</div>
-                <div className="text-xs text-slate-500">已完成</div>
+                <div className="text-xs text-slate-400">已完成</div>
               </div>
             </Link>
-            <Link
-              href="/eval"
-              className="glass flex items-center gap-4 rounded-xl p-4 transition hover:border-white/15 hover:bg-white/[0.05]"
-            >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/20 text-sm font-bold text-emerald-300">
+            <div className="glass flex cursor-not-allowed items-center gap-4 rounded-xl p-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/5 text-sm font-bold text-slate-400">
                 07
               </div>
               <div>
-                <div className="text-sm font-medium text-white">评估与基准</div>
-                <div className="text-xs text-slate-500">SWE-bench / 打分器 →</div>
+                <div className="text-sm font-medium text-slate-300">评估与基准</div>
+                <div className="text-xs text-slate-400">即将推出</div>
               </div>
-            </Link>
+            </div>
           </div>
         </section>
       </main>

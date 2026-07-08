@@ -18,7 +18,7 @@ export function SiteHeader({ pageLabel, backHref }: SiteHeaderProps) {
           </Link>
           <div>
             <Link href="/" className="text-sm font-semibold text-white hover:text-blue-300">
-              Harness 工程
+              AM Harness 工程指南
             </Link>
             <div className="text-xs text-slate-500">图形化学习 · 不用啃长文档</div>
           </div>

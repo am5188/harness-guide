@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_SC, Geist_Mono } from "next/font/google";
+import { PageChrome } from "@/components/page-chrome";
 import "./globals.css";
 
 const notoSans = Noto_Sans_SC({
@@ -14,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Harness 工程 · 一眼看懂",
+  title: "AM Harness 工程指南",
   description: "用图形化界面把 Harness 工程讲清楚，不用啃长文档。",
 };
 
@@ -28,7 +29,10 @@ export default function RootLayout({
       lang="zh-CN"
       className={`dark ${notoSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <PageChrome />
+      </body>
     </html>
   );
 }
