@@ -16,63 +16,63 @@ const STRATEGIES: {
   whenToUse: string;
   trigger: string;
   bestFor: string[];
-  color: string;
+  color: "sky" | "cyan";
 }[] = [
   {
     id: "compaction",
-    name: "压缩 Compaction",
+    name: "压缩",
     shortName: "压缩",
     icon: "🗜️",
-    tagline: "把整个窗口蒸馏成高保真摘要",
-    analogy: "把一摞会议记录浓缩成一份纪要",
-    whatItDoes: "把整个上下文窗口里的对话、推理、工具轨迹，压缩成一份更小的摘要条目。Agent 带着「发生过什么」继续跑，而不是带着原始全文。",
-    whenToUse: "长对话推理必须保住、窗口快满了、且可逆清理已经不够用时。",
-    trigger: "约 70% 有效窗口（128K 窗口 ≈ 90K–100K token）",
-    bestFor: ["多轮深度推理", "需要保留决策脉络", "子任务已解决、轨迹在收敛时"],
+    tagline: "把一摞旧记录浓缩成一份摘要",
+    analogy: "像把一整场会议的录音，浓缩成一页会议纪要。",
+    whatItDoes:
+      "把桌上所有旧对话、推理过程、查过的资料，整段缩成一份更短的摘要。AI 带着「之前发生过什么」继续干活，而不是背着全部原文。",
+    whenToUse: "长段推理必须保住、桌子快满了、光靠清理已经不够用时。",
+    trigger: "桌上大约堆到 70% 满的时候",
+    bestFor: ["多轮深度推理", "要保留决策脉络", "子任务做完、思路理顺了"],
     color: "sky",
   },
   {
     id: "clearing",
-    name: "工具结果清理 Clearing",
+    name: "清理工具结果",
     shortName: "清理",
     icon: "🧹",
-    tagline: "丢掉窗口内过时、可重新获取的工具输出",
-    analogy: "把看过、随时能再查的资料从桌面收走",
-    whatItDoes: "不碰用户消息和 Agent 推理，只把旧的工具返回换成占位符（observation masking）。需要时重新调工具拿新鲜数据。",
-    whenToUse: "当前最佳实践首选——成本低、效果好，尤其适合工具调用密集的任务。",
-    trigger: "约 60–70% 窗口；滚动保留最近 N 个工具结果",
-    bestFor: ["读文件 / 搜代码", "可重新执行的命令", "JetBrains 实测省 50%+ 成本"],
-    color: "teal",
+    tagline: "把看过、随时能再查的资料从桌上收走",
+    analogy: "像把已经翻过的参考书放回书架——需要时再拿，不必一直摊在桌上。",
+    whatItDoes:
+      "不动你的问题和 AI 的思考过程，只把旧的「查文件结果」「跑命令输出」换成一行占位符。需要时重新查一次，拿最新鲜的数据。",
+    whenToUse: "首选办法——成本低、效果好，特别适合 AI 频繁查资料、跑命令的任务。",
+    trigger: "桌上大约堆到 60–70% 满；只留最近几条工具结果",
+    bestFor: ["读文件 / 搜代码", "能重新跑的命令", "日常最省钱的收拾法"],
+    color: "cyan",
   },
   {
     id: "memory",
-    name: "外部记忆 Memory",
+    name: "外部记忆",
     shortName: "记忆",
     icon: "📁",
-    tagline: "结构化记笔记，写到窗口之外的持久存储",
-    analogy: "把重要结论归档进档案室，需要时再取回",
-    whatItDoes: "信息移出上下文窗口，存到文件 / 数据库 / 向量库。跨会话存活，按语义或路径检索回来。",
-    whenToUse: "跨会话延续、长期项目状态、压缩前的可逆备份。",
-    trigger: "定期写入；压缩前先把完整历史存到别处",
-    bestFor: ["progress.md / JSONL", "工作记忆 + 长期记忆分层", "子代理返回结构化摘要"],
+    tagline: "把重要结论写进档案室，需要时再翻",
+    analogy: "像把关键决定记进笔记本，桌上只留当前在做的那页。",
+    whatItDoes:
+      "把信息从 AI 的「眼前」挪到桌外的文件或数据库里。跨好几天的项目也能接着干——需要时按关键词或意思搜回来。",
+    whenToUse: "跨天延续项目、要长期记住的事、压缩之前先把完整记录备份到别处。",
+    trigger: "定期写入；压缩前先把完整历史存到文件里",
+    bestFor: ["progress.md 笔记", "工作记忆 + 长期记忆", "小助手只带回摘要"],
     color: "cyan",
   },
 ];
 
-const colorMap: Record<string, { border: string; bg: string; text: string; ring: string; accent: string }> = {
+const colorMap: Record<
+  "sky" | "cyan",
+  { border: string; bg: string; text: string; ring: string; accent: string; bar: string }
+> = {
   sky: {
     border: "border-sky-500/30",
     bg: "bg-sky-500/15",
     text: "text-sky-300",
     ring: "ring-sky-500/40",
     accent: "bg-sky-500/20",
-  },
-  teal: {
-    border: "border-teal-500/30",
-    bg: "bg-teal-500/15",
-    text: "text-teal-300",
-    ring: "ring-teal-500/40",
-    accent: "bg-teal-500/20",
+    bar: "bg-sky-500/30 border-sky-500/40",
   },
   cyan: {
     border: "border-cyan-500/30",
@@ -80,6 +80,7 @@ const colorMap: Record<string, { border: string; bg: string; text: string; ring:
     text: "text-cyan-300",
     ring: "ring-cyan-500/40",
     accent: "bg-cyan-500/20",
+    bar: "bg-cyan-500/30 border-cyan-500/50",
   },
 };
 
@@ -88,26 +89,26 @@ function WindowVisualization({ active }: { active: Strategy }) {
   const segments =
     active === "compaction"
       ? [
-          { label: "用户 + 推理", width: "w-[18%]", cls: "bg-sky-500/30 border-sky-500/40" },
+          { label: "你的问题 + AI 思考", width: "w-[18%]", cls: "bg-sky-500/30 border-sky-500/40" },
           { label: "旧内容 → 摘要", width: "w-[52%]", cls: "bg-sky-500/50 border-sky-500/60 ring-1 ring-sky-400/50" },
-          { label: "近期原文", width: "w-[30%]", cls: "bg-slate-500/20 border-white/10" },
+          { label: "最近原文", width: "w-[30%]", cls: "bg-slate-500/20 border-white/10" },
         ]
       : active === "clearing"
         ? [
-            { label: "用户 + 推理", width: "w-[25%]", cls: "bg-teal-500/25 border-teal-500/35" },
-            { label: "旧工具 → 占位符", width: "w-[35%]", cls: "bg-teal-500/40 border-teal-500/50 ring-1 ring-teal-400/50" },
-            { label: "最近 N 个工具结果", width: "w-[40%]", cls: "bg-slate-500/20 border-white/10" },
+            { label: "你的问题 + AI 思考", width: "w-[25%]", cls: "bg-cyan-500/25 border-cyan-500/35" },
+            { label: "旧结果 → 占位符", width: "w-[35%]", cls: "bg-cyan-500/40 border-cyan-500/50 ring-1 ring-cyan-400/50" },
+            { label: "最近几条结果", width: "w-[40%]", cls: "bg-slate-500/20 border-white/10" },
           ]
         : [
-            { label: "窗口内精简上下文", width: "w-[35%]", cls: "bg-cyan-500/25 border-cyan-500/35" },
+            { label: "桌上精简内容", width: "w-[35%]", cls: "bg-cyan-500/25 border-cyan-500/35" },
             { label: "→ 写出", width: "w-[15%]", cls: "bg-transparent border-dashed border-cyan-500/40 text-cyan-400" },
-            { label: "progress.md / 向量库", width: "w-[50%]", cls: "bg-cyan-500/30 border-cyan-500/50 ring-1 ring-cyan-400/50" },
+            { label: "笔记文件 / 档案库", width: "w-[50%]", cls: "bg-cyan-500/30 border-cyan-500/50 ring-1 ring-cyan-400/50" },
           ];
 
   return (
-    <div className="mb-6 rounded-xl border border-white/5 bg-black/20 p-4">
-      <div className="mb-2 text-center text-xs text-slate-400">上下文窗口示意</div>
-      <div className="flex h-14 gap-1 overflow-hidden rounded-lg border border-white/10">
+    <div className="mb-6 rounded-2xl border border-white/5 bg-black/20 p-5">
+      <div className="mb-3 text-center text-xs text-slate-500">AI 眼前能看到的东西（示意）</div>
+      <div className="flex h-14 gap-1 overflow-hidden rounded-xl border border-white/10">
         {segments.map((seg) => (
           <div
             key={seg.label}
@@ -121,10 +122,10 @@ function WindowVisualization({ active }: { active: Strategy }) {
           </div>
         ))}
       </div>
-      <p className="mt-3 text-center text-xs text-slate-400">
-        {active === "compaction" && "整窗压缩：旧轨迹变成摘要，窗口腾出新空间"}
-        {active === "clearing" && "只清工具输出：推理链保留，陈旧 observation 换成占位符"}
-        {active === "memory" && "信息移出窗口：持久化到外部，需要时再读回来"}
+      <p className="mt-3 text-center text-xs text-slate-500">
+        {active === "compaction" && "整段压缩：旧内容变成摘要，腾出桌面空间"}
+        {active === "clearing" && "只清中间结果：思考过程保留，旧查询结果收走"}
+        {active === "memory" && "移出桌面：重要内容写到文件里，需要时再读回来"}
       </p>
     </div>
   );
@@ -147,10 +148,10 @@ export function ContextStrategyPicker() {
               type="button"
               onClick={() => setActive(strategy.id)}
               className={cn(
-                "flex-1 rounded-xl border px-3 py-4 text-center transition-all sm:px-5",
+                "flex-1 rounded-2xl border px-3 py-4 text-center transition-all sm:px-5",
                 isActive
                   ? cn(c.border, c.bg, "ring-1", c.ring)
-                  : "border-white/5 bg-white/[0.02] hover:border-white/10",
+                  : "border-white/5 bg-white/[0.02] hover:border-sky-500/20 hover:bg-white/[0.04]",
               )}
             >
               <div className="mb-1 text-xl sm:text-2xl">{strategy.icon}</div>
@@ -164,30 +165,30 @@ export function ContextStrategyPicker() {
 
       <WindowVisualization active={active} />
 
-      <div className={cn("glass rounded-2xl border p-6", colors.border)}>
-        <div className="mb-4 flex items-center gap-3">
+      <div className={cn("glass rounded-3xl border p-6 sm:p-8", colors.border)}>
+        <div className="mb-5 flex items-center gap-3">
           <span className="text-2xl">{selected.icon}</span>
           <div>
-            <h3 className={cn("font-semibold", colors.text)}>{selected.name}</h3>
-            <p className="text-xs text-slate-400">{selected.tagline}</p>
+            <h3 className={cn("text-lg font-semibold", colors.text)}>{selected.name}</h3>
+            <p className="text-sm text-slate-500">{selected.tagline}</p>
           </div>
         </div>
 
-        <p className="mb-4 text-sm text-slate-300">
-          <span className="text-slate-400">比喻：</span>
+        <p className="mb-4 text-base leading-relaxed text-slate-400">
+          <span className="text-slate-500">生活类比：</span>
           {selected.analogy}
         </p>
 
-        <p className="mb-4 text-sm leading-relaxed text-slate-300">{selected.whatItDoes}</p>
+        <p className="mb-5 text-base leading-relaxed text-slate-400">{selected.whatItDoes}</p>
 
-        <div className="mb-4 grid gap-3 sm:grid-cols-2">
-          <div className="rounded-lg border border-white/5 bg-black/20 px-4 py-3">
-            <div className="mb-1 text-xs font-semibold text-slate-400">什么时候用</div>
-            <p className="text-sm text-slate-300">{selected.whenToUse}</p>
+        <div className="mb-5 grid gap-3 sm:grid-cols-2">
+          <div className="rounded-2xl border border-white/5 bg-black/20 px-4 py-3">
+            <div className="mb-1 text-xs font-medium text-slate-500">什么时候用</div>
+            <p className="text-sm leading-relaxed text-slate-300">{selected.whenToUse}</p>
           </div>
-          <div className="rounded-lg border border-white/5 bg-black/20 px-4 py-3">
-            <div className="mb-1 text-xs font-semibold text-slate-400">触发阈值</div>
-            <p className="text-sm text-slate-300">{selected.trigger}</p>
+          <div className="rounded-2xl border border-white/5 bg-black/20 px-4 py-3">
+            <div className="mb-1 text-xs font-medium text-slate-500">大概什么时候动手</div>
+            <p className="text-sm leading-relaxed text-slate-300">{selected.trigger}</p>
           </div>
         </div>
 
@@ -203,10 +204,11 @@ export function ContextStrategyPicker() {
         </div>
       </div>
 
-      <p className="mt-4 text-center text-xs text-slate-400">
-        一句话：<strong className="text-slate-300">压缩</strong>压整个窗口 ·{" "}
-        <strong className="text-slate-300">清理</strong>丢可再取的陈旧数据 ·{" "}
-        <strong className="text-slate-300">记忆</strong>移出窗口、跨会话存活
+      <p className="mt-5 text-center text-sm text-slate-500">
+        一句话：
+        <span className="text-slate-400">压缩</span>缩整桌 ·{" "}
+        <span className="text-slate-400">清理</span>收走过时资料 ·{" "}
+        <span className="text-slate-400">记忆</span>写到桌外、跨天也能翻
       </p>
     </div>
   );

@@ -93,7 +93,7 @@ export function PageChrome() {
               onClick={() => scrollToSection(s.id)}
               aria-label={`跳转到：${s.text}`}
               aria-current={isActive ? "true" : undefined}
-              className="group flex items-center justify-end gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50"
+              className="group flex items-center justify-end gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50"
               title={s.text}
             >
               <span
@@ -110,7 +110,7 @@ export function PageChrome() {
                 className={cn(
                   "h-0.5 rounded-full transition-all duration-200",
                   isActive
-                    ? "w-8 bg-gradient-to-r from-blue-400 to-violet-400"
+                    ? "w-8 bg-gradient-to-r from-sky-400 to-cyan-400"
                     : "w-4 bg-white/25 group-hover:w-6 group-hover:bg-white/50",
                 )}
               />
@@ -125,7 +125,7 @@ export function PageChrome() {
           type="button"
           onClick={scrollToTop}
           aria-label="回到顶部"
-          className="glass fixed right-5 bottom-20 z-50 flex h-11 w-11 items-center justify-center rounded-full text-slate-300 shadow-lg shadow-black/30 transition hover:scale-110 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50"
+          className="glass fixed right-5 bottom-20 z-50 flex h-11 w-11 items-center justify-center rounded-full text-slate-300 shadow-lg shadow-black/30 transition hover:scale-110 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 19V5M5 12l7-7 7 7" />
@@ -153,7 +153,7 @@ export function PageChrome() {
                   className={cn(
                     "block rounded-full transition-all duration-200",
                     isActive
-                      ? "h-2.5 w-2.5 bg-gradient-to-br from-blue-400 to-violet-400 shadow shadow-blue-500/40"
+                      ? "h-2.5 w-2.5 bg-gradient-to-br from-sky-400 to-cyan-400 shadow shadow-sky-500/40"
                       : "h-2 w-2 border border-white/40 bg-transparent group-hover:border-white group-hover:bg-white/20",
                   )}
                 />
