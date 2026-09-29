@@ -1,12 +1,13 @@
 {
-  "name": "web",
+  "name": "harness-guide",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy": "bash scripts/deploy.sh"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -29,5 +30,9 @@
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "description": "用图形化界面把 AI Agent Harness 工程讲清楚",
+  "engines": {
+    "node": ">=20.9.0"
   }
 }
